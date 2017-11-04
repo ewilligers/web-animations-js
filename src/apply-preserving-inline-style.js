@@ -208,6 +208,11 @@
     } catch (_) {
       // iOS and older versions of Safari (pre v7) do not support overriding an element's
       // style object. Animations will clobber any inline styles as a result.
+    }
+    // On PhantomJS, configureProperty fails without throwing an exception.
+
+    // For iOS, older versions of Safari, and PhantomJS.
+    if (!element.style._set || !element.style._clear) {
       element.style._set = function(property, value) {
         element.style[property] = value;
       };
